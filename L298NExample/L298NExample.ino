@@ -2,6 +2,9 @@
  * Demonstrates using the L298N motor controller with mixed speeds and
  * directions.
  * 
+ * See this example for help setting upt the L298N motor controller
+ * https://howtomechatronics.com/tutorials/arduino/arduino-dc-motor-control-tutorial-l298n-pwm-h-bridge/
+ * 
  * Example code for csci1951c Designing Humanity Centered Robots
  * Brown University
  * 
