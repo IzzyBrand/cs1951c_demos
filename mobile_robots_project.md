@@ -12,7 +12,7 @@ What do you think will happen to your square as the battery starts to run low? W
 
 ## Step 3: Use a sensor!
 
-Add a sensor to your robot, and come up with an interesting behavior that makes use of a sensor. Mobile robots have significant potential to exhibit very life-like/funny/interesting/complex behavior with a minimal amount of code. Remember the example of a light-seeking robot with just two light sensors and two wheels? Think about how you can incorporate randomness into your !
+Add a sensor to your robot, and come up with an interesting behavior that makes use of a sensor. Mobile robots have significant potential to exhibit very life-like/funny/interesting/complex behavior with a minimal amount of code. Remember the example of a light-seeking robot with just two light sensors and two wheels? Think about how you can incorporate randomness into your bot!
 
 Some sensor ideas:
 
