@@ -1,6 +1,9 @@
 # cs1951c_demos
 Example code for Designing Humanity Centered Robots
 
+[Check out the class blog!](https://humanitycenteredrobotsfall2018.tumblr.com/)
+
+
 ## Getting Started Project
 
 Introduction to Arduinos! Students spend several weeks prototyping a product of their choice.
