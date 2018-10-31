@@ -21,10 +21,10 @@ GPIO.setup(led_pin, GPIO.OUT) # set the led_pin as output
 
 # blink in a loop
 while True:
-    GPIO.output(18, GPIO.HIGH)
+    GPIO.output(led_pin, GPIO.HIGH)
     print "Pin", led_pin, "ON"
     sleep(1)
-    GPIO.output(18, GPIO.LOW)
+    GPIO.output(led_pin, GPIO.LOW)
     print "Pin", led_pin, "OFF"
     sleep(1)
 
