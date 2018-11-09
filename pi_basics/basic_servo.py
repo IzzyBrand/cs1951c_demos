@@ -1,10 +1,8 @@
 '''
 Demonstrates low level servo control with.a raspberry pi.
 
-NOTE: this is not how you will want to control a servo in general! Check out
-
-This tutorial for a more typical use
-https://learn.adafruit.com/adafruits-raspberry-pi-lesson-8-using-a-servo-motor
+See this page for more details
+https://rpi.science.uoit.ca/lab/servo/
 
 This github to see how to use the servoblaster library
 https://github.com/richardghirst/PiBits/tree/master/ServoBlaster
@@ -15,29 +13,42 @@ Brown University
 Izzy Brand (2018)
 '''
 
-import RPi.GPIO as GPIO # this library enables interfacing with the GPIO (pins)
-from time import sleep # this library gives delay functionality
-import numpy as np # the math library for python
+import numpy as np
+import RPi.GPIO as GPIO
+import time
 
-servo_pin = 18 # declare a variable to store which pin to blink
+GPIO.setmode(GPIO.BCM) # the pin numbering scheme
 
-# setup the pin
-GPIO.setmode(GPIO.BCM) # say how the pins are numbered (this is the most common scheme)
-GPIO.setup(servo_pin, GPIO.OUT) # set the led_pin as output
+servo_pin = 18
+GPIO.setup(servo_pin, GPIO.OUT) # configure out desired pin as output
 
-delay_between_pulses = 0.02 # 20 milliseconds
-min_pulse_duration = 1000
-max_pulse_duration = 2000
+# we want to pulse pin servo_pin at 50hz
+# We need 50hz because servos PWM has a period of 20 milliseconds
+p = GPIO.PWM(servo_pin, 50)
 
-# blink in a loop
-while True:
-	pulse_duration = np.random.randint(min_pulse_duration, max_pulse_duration) # get a random servo angle
-        print "Setting servo to", pulse_duration
+# define a function that takes in the servo angle and returns
+# the percentage of the time that we should pulse the pin HIGH.
+def angle_to_duty_cycle(angle):
+	# duration of the pulse in milliseconds (between 1 and 2)
+    pulse_duration = angle/180.0 + 1.0
+    # the total length of the period is 20 milliseconds. We multiply by 100 to get percent
+    return pulse_duration/20.0 * 100.0
 
-	# send 50 pulses (corresponds to about 1 second)
-	for i in range(50):
-	    GPIO.output(servo_pin, GPIO.HIGH)
-	    sleep(pulse_duration * 1e-6)
-	    GPIO.output(servo_pin, GPIO.LOW)
-	    sleep(delay_between_pulses)
+dc = angle_to_duty_cycle(90)
+p.start(dc) # turn on the PWM and set the angle to 90
 
+try:
+    while True:
+        angle = np.random.randint(180) # select a random number in [0,180]
+        print("Setting the servo to {} degrees".format(angle))
+
+        dc = angle_to_duty_cycle(angle)
+        p.ChangeDutyCycle(dc) # set the servo to that angle
+
+        time.sleep(1) # sleep 1 second
+
+
+# when the script stops, turn off the PWM so the servo turns off
+except KeyboardInterrupt:
+    p.stop()
+    GPIO.cleanup()
